@@ -912,7 +912,8 @@ func (h *Histogram) Copy() *Histogram {
 	newhist.useLocks = h.useLocks
 
 	newhist.bvs = make([]bin, len(h.bvs))
-	copy(h.bvs, newhist.bvs)
+	//copy(h.bvs, newhist.bvs) // Note: this copy is backwards, Go library copy is copy(dest, src)
+	copy(newhist.bvs, h.bvs) // Most likely correct, see above, but not yet tested
 
 	newhist.useLookup = h.useLookup
 	if h.useLookup {
